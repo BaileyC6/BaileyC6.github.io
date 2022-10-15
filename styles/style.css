@@ -1,78 +1,42 @@
-html {
-    font-size: 10px;
+html { /* This section affects every style not listed below*/
+    font-size: 20px;
     font-family: "Open Sans", sans-serif;
-    background-color: #459CD3
+    background-color: #021926; /* dark slate grey is good too*/
+    color: lightcoral;
+    text-align: center;
+    margin: 1;
   }
 
   h1 {
     font-size: 60px;
-    text-align: center;
-    margin: 0;
-    padding: 20px 0;
-    color: #00539f;
+    color: steelblue;
     text-shadow: 3px 3px 1px black;
   }
-  
-  p,
-  li {
-    font-size: 16px;
-    line-height: 2;
-    letter-spacing: 1px;
+
+  .instruction-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  body {
-    width: 1000px;
-    margin: 0 auto;
-    background-color: #FFFFFF;
-    padding: 0 20px 20px 20px;
-    border: 5px solid black;
-  }
-
-  img {
-    display: block;
-    margin: 0 auto;
-  }
-
-  .instruction-container {
-    width: auto;
-    overflow-y: auto;
-  }
-
-  button {
-    background-color: rgba(255, 255, 255, 0.8);
-    transition-duration: .5s;
-    cursor: pointer;
-  }
-
-  button :hover {
-    background-color: #459CD3;
-  }
-
-  button.XICbutton {
-    background-image: url("../images/XIC.svg");
-  }
-
-  #XICbutton {
-    background-image: url("../images/XIC.svg");
-    background-color: rgba(255, 255, 255, 0.8);
-    transition-duration: .5s;
-    cursor: pointer;
-  }
-
-  #XICbutton:hover {
-    background-color: #459CD3;
-  }
-
-  .grid-container {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    background-color: #459CD3;
-    padding: 10px;
-  }
-  .grid-item {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    font-size: 30px;
+  .instruction-group .instruction {
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 8px;
     text-align: center;
+    cursor: pointer;
+    float: left; /* this connects the button together, must have 0 margin, must also use style="clear:both" after or any after it will float too */
+    transition-duration: .5s;
+  }
+
+  .instruction-group .instruction:hover {
+    background-color: lemonchiffon;
+    border: 1px outset sandybrown;
+  }
+
+  .instruction-group .instruction .XIC {
+    padding: 20px;
+    background-image: url("../images/XIC.svg");
+    alt: "XIC Instruction";
   }
