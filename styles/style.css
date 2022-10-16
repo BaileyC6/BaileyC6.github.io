@@ -7,36 +7,62 @@ html { /* This section affects every style not listed below*/
     margin: 1;
   }
 
-  h1 {
-    font-size: 60px;
-    color: steelblue;
-    text-shadow: 3px 3px 1px black;
-  }
+h1 {
+  font-size: 60px;
+  color: steelblue;
+  text-shadow: 3px 3px 1px black;
+}
 
-  .instruction-group {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.Menu { grid-area: Menu;}
+.Tags { grid-area: Tags;}
+.Code { grid-area: Code; min-height: 60vh;}
+.Errors {grid-area: Errors;}
 
-  .instruction-group .instruction {
-    background-color: white;
-    color: black;
-    border: none;
-    padding: 8px;
-    text-align: center;
-    cursor: pointer;
-    float: left; /* this connects the button together, must have 0 margin, must also use style="clear:both" after or any after it will float too */
-    transition-duration: .5s;
-  }
+.mainwindow {
+  display: grid;
+  grid-template-areas: 
+  'Menu Menu Menu Menu'
+  'Tags Code Code Code'
+  'Tags Errors Errors Errors';
+  background-color: darkslategray;
+  gap: 10px;
+  padding: 10px;
+}
 
-  .instruction-group .instruction:hover {
-    background-color: lemonchiffon;
-    border: 1px outset sandybrown;
-  }
+.mainwindow > div {
+  background-color: rgb(65, 107, 107);
+  font-size: 30px;
+  text-align: center;
+  overflow: auto;
+}
 
-  .instruction-group .instruction .XIC {
-    padding: 20px;
-    background-image: url("../images/XIC.svg");
-    alt: "XIC Instruction";
-  }
+.instruction-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.instruction-group .instruction {
+  font-size: 20px;
+  background-color: white;
+  color: black;
+  border: none;
+  box-sizing: border-box;
+  padding: 8px;
+  text-align: center;
+  cursor: pointer;
+  float: left; /* this connects the button together, must have 0 margin, must also use style="clear:both" after or any after it will float too */
+  transition-duration: .0s;
+}
+
+.instruction-group .instruction:hover {
+  background-color: lemonchiffon;
+  border: 2px outset sandybrown;
+}
+
+.XIC {
+  width: 100px;
+  height: 100px;
+  background-image: url("../images/XIC.svg");
+  alt: "XIC Instruction";
+}
