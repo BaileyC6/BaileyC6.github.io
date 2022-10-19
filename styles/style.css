@@ -48,13 +48,13 @@ h1 {
 
 /* instructions menu bar */
 
-.instruction-group {
+.instruction-menu {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.instruction-group > * {
+.instruction-menu > * {
   font-size: 20px;
   background-color: white;
   color: black;
@@ -68,14 +68,14 @@ h1 {
   user-select: none;
 }
 
-.instruction-group > *:hover {
+.instruction-menu > *:hover {
   background-color: lemonchiffon;
   box-shadow: inset 0px 0px 0px 2px sandybrown;
 }
 
 /* Instruction Image Locations */
 
-.Rung {
+/* .NewRung {
 
 }
 
@@ -88,10 +88,10 @@ h1 {
 }
 
 .XIC {
-  /* width: 100px;
+  width: 100px;
   height: 100px;
   background-image: url("../images/XIC.svg");
-  alt: "XIC Instruction"; */
+  alt: "XIC Instruction";
 }
 
 .XIO {
@@ -112,4 +112,4 @@ h1 {
 
 .OTU {
 
-}
+} */
