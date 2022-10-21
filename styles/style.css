@@ -81,6 +81,10 @@ h1 {
 }
 
 .TagName {
+  /* outline: none; add this if I want to remove the focus box */
+  border: none;
+  background: transparent;
+  color: white;
   text-align: center;
   padding: 3px;
   width: 40px;
