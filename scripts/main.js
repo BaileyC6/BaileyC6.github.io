@@ -17,6 +17,7 @@ class inputDiv {
     const tagNameDiv = document.createElement('input');
     tagNameDiv.className = 'TagName'
     tagNameDiv.value = tagName;
+    tagNameDiv.addEventListener('input', resizeInput);
     const InputDiv = document.createElement('div');
     InputDiv.className = 'Input';
     InputDiv.appendChild(tagNameDiv);
@@ -33,6 +34,12 @@ class inputDiv {
     InputDiv.appendChild(instructionSymbol);
     return InputDiv;
   }
+}
+
+// resizes the input field to match the length of the text input
+//can probably add the tagname rename on exit
+function resizeInput() {
+  this.style.width = this.value.length + "ch";
 }
 
 document.querySelector('.instruction > .XIC').addEventListener('click', addXIC);
@@ -56,6 +63,8 @@ function addnewrung() {
   document.querySelector('.Code').appendChild(addedrung);
   NumOfRungs ++;
 }
+
+// Instruction Classes
 
 class Instruction {
   constructor (text, tagName = '?') {
