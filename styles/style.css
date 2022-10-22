@@ -78,6 +78,7 @@ h1 {
 .Rung > * {
   display:inline-block;
   padding: 3px;
+  outline: none;
 }
 
 .TagName {

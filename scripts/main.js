@@ -1,10 +1,4 @@
-const instructions = document.querySelectorAll(".instruction-menu .instruction");
-
-let NumOfRungs = 1;
-
-var selectedRung;
-
-// document.querySelector('.Rung').addEventListener('click', SelectRung)
+// const instructions = document.querySelectorAll(".instruction-menu .instruction");
 
 // for (const instruction of instructions) {
 //   instruction.addEventListener('click', addinstruction);
@@ -45,9 +39,27 @@ function resizeInput() {
 document.querySelector('.instruction > .XIC').addEventListener('click', addXIC);
 
 function addXIC() {
-  test = new inputDiv('XIC');
-  // alert(test.addedInstruction.structuredText);
-  document.querySelector('.Rung').appendChild(test);
+  instruction = new inputDiv('XIC');
+  selectedRung.appendChild(instruction);
+}
+
+let NumOfRungs = 1;
+var selectedRung = document.querySelector('.Rung');
+document.querySelector('.Rung').addEventListener('click', SelectRung);
+document.querySelector('.Rung').addEventListener('keydown', (e) => DeleteRung(e));
+
+function SelectRung() {
+  selectedRung.style.background = 'transparent';
+  selectedRung = this;
+  selectedRung.style.background = '#AA0000';
+}
+
+function DeleteRung(e) {
+  if(e.key == 'Delete')
+  {
+    selectedRung.remove();
+    //need to renumber rungs here too
+  }
 }
 
 const newrungbutton = document.querySelector(".NewRung");
@@ -56,6 +68,9 @@ newrungbutton.addEventListener('click', addnewrung);
 function addnewrung() {
   const addedrung = document.createElement('div');
   addedrung.className = 'Rung';
+  addedrung.tabIndex = '0';
+  addedrung.addEventListener('click', SelectRung);
+  addedrung.addEventListener('keydown', (e) => DeleteRung(e));
   const rungnumber = document.createElement('div');
   rungnumber.className = 'RungNumber';
   rungnumber.innerText = NumOfRungs;
