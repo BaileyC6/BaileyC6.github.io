@@ -1,13 +1,20 @@
-// const instructions = document.querySelectorAll(".instruction-menu .instruction");
+// #region Initializers
 
-// for (const instruction of instructions) {
-//   instruction.addEventListener('click', addinstruction);
-// }
+let NumOfRungs = 1;
+//give select/delete commands to intial html rung element
+document.querySelector('.Rung').addEventListener('click', selectElement);
+document.querySelector('.Rung').addEventListener('keydown', deleteElement);
+//this var will be used to know what element is selected to delete or other stuff idk.....
+var selectedElement;
+
+// #endregion
 
 //I dont know if this should be a function or a class
-class inputDiv {
+class inputDiv 
+{
   addedInstruction;
-  constructor(InstructionName, tagName = '?') {
+  constructor(InstructionName, tagName = '?') 
+  {
     const tagNameDiv = document.createElement('input');
     tagNameDiv.className = 'TagName'
     tagNameDiv.value = tagName;
@@ -15,10 +22,13 @@ class inputDiv {
     const InputDiv = document.createElement('div');
     InputDiv.className = 'Input';
     InputDiv.appendChild(tagNameDiv);
+    InputDiv.addEventListener('click', selectElement);
+    InputDiv.addEventListener('keydown', deleteElement);
 
     const instructionSymbol = document.createElement('div');
 
-    switch (InstructionName) {
+    switch (InstructionName) 
+    {
       case 'XIC':
         const addedInstruction = new XIC(tagName);
         instructionSymbol.className = 'XICInstruction';
@@ -32,45 +42,32 @@ class inputDiv {
 
 // resizes the input field to match the length of the text input
 //can probably add the tagname rename on exit
-function resizeInput() {
+function resizeInput() 
+{
   this.style.width = this.value.length + "ch";
 }
 
 document.querySelector('.instruction > .XIC').addEventListener('click', addXIC);
 
-function addXIC() {
-  instruction = new inputDiv('XIC');
-  selectedRung.appendChild(instruction);
-}
-
-let NumOfRungs = 1;
-var selectedRung = document.querySelector('.Rung');
-document.querySelector('.Rung').addEventListener('click', SelectRung);
-document.querySelector('.Rung').addEventListener('keydown', (e) => DeleteRung(e));
-
-function SelectRung() {
-  selectedRung.style.background = 'transparent';
-  selectedRung = this;
-  selectedRung.style.background = '#AA0000';
-}
-
-function DeleteRung(e) {
-  if(e.key == 'Delete')
+function addXIC() 
+{
+  if(selectedElement != null) 
   {
-    selectedRung.remove();
-    //need to renumber rungs here too
+   instruction = new inputDiv('XIC');
+   selectedElement.appendChild(instruction);
   }
 }
 
 const newrungbutton = document.querySelector(".NewRung");
 newrungbutton.addEventListener('click', addnewrung);
 
-function addnewrung() {
+function addnewrung() 
+{
   const addedrung = document.createElement('div');
   addedrung.className = 'Rung';
   addedrung.tabIndex = '0';
-  addedrung.addEventListener('click', SelectRung);
-  addedrung.addEventListener('keydown', (e) => DeleteRung(e));
+  addedrung.addEventListener('click', selectElement);
+  addedrung.addEventListener('keydown', deleteElement);
   const rungnumber = document.createElement('div');
   rungnumber.className = 'RungNumber';
   rungnumber.innerText = NumOfRungs;
@@ -79,18 +76,61 @@ function addnewrung() {
   NumOfRungs ++;
 }
 
-// Instruction Classes
+// #region HTML Manipulations (selecting, deleting, undo, redo, etc.)
 
-class Instruction {
-  constructor (text, tagName = '?') {
+function selectElement(e) 
+{
+  e.stopPropagation(); //if we dont have this when clicking instructions the rung click event will also be triggered, thus always selecting the rung
+  if(selectedElement != null) 
+  {
+    selectedElement.style.background = 'transparent';
+  }
+  selectedElement = e.currentTarget;
+  selectedElement.style.background = '#120ee8';
+}
+
+//this feels kind of shit
+function deleteElement(e) 
+{
+  if(e.key == 'Delete')
+  {
+    var deletedElement = selectedElement;
+    if(selectedElement.previousElementSibling != null) 
+    {
+      //if its the last instruction on the rung select the rung (not the rung number)
+      if(selectedElement.previousElementSibling.className == 'RungNumber')
+      {
+        selectedElement = deletedElement.parentElement;
+      }
+      else 
+      {
+        selectedElement = deletedElement.previousElementSibling;
+      }
+      selectedElement.style.background = '#120ee8';
+    }
+    deletedElement.remove();
+  }
+}
+
+// #endregion
+
+// #region Instruction Classes
+
+class Instruction 
+{
+  constructor (text, tagName = '?') 
+  {
     this.structuredText = `${text}(${tagName})`;
     this.tagName = tagName;
   }
 }
 
-class XIC extends Instruction {
+class XIC extends Instruction 
+{
   value = false;
-  constructor(tagName = '?') {
+  constructor(tagName = '?') 
+  {
     super('XIC', tagName);
   }
 }
+// #endregion
