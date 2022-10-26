@@ -15,7 +15,7 @@ h1 {
 
 .Menu { grid-area: Menu;}
 .Tags { grid-area: Tags;}
-.Code { grid-area: Code; min-height: 60vh; max-height: 80vh;}
+.Code { grid-area: Code; min-height: 60vh; max-height: 80vh; counter-reset: rung -1;}
 .Errors {grid-area: Errors;}
 
 .mainwindow {
@@ -79,6 +79,11 @@ h1 {
   display:inline-block;
   padding: 3px;
   outline: none;
+}
+
+.Rung::before {
+  counter-increment: rung;
+  content: counter(rung);
 }
 
 .TagName {

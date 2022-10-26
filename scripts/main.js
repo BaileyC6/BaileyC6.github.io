@@ -1,11 +1,12 @@
 // #region Initializers
 
-let NumOfRungs = 1;
 //give select/delete commands to intial html rung element
 document.querySelector('.Rung').addEventListener('click', selectElement);
 document.querySelector('.Rung').addEventListener('keydown', deleteElement);
 //this var will be used to know what element is selected to delete or other stuff idk.....
 var selectedElement;
+//last rung used for info idk
+const ENDRung = document.querySelector('.END');
 
 // #endregion
 
@@ -65,15 +66,12 @@ function addnewrung()
 {
   const addedrung = document.createElement('div');
   addedrung.className = 'Rung';
-  addedrung.tabIndex = '0';
+  addedrung.tabIndex = '0'; //idk why this is needed
   addedrung.addEventListener('click', selectElement);
   addedrung.addEventListener('keydown', deleteElement);
-  const rungnumber = document.createElement('div');
-  rungnumber.className = 'RungNumber';
-  rungnumber.innerText = NumOfRungs;
-  addedrung.appendChild(rungnumber);
-  document.querySelector('.Code').appendChild(addedrung);
-  NumOfRungs ++;
+
+  //add the rung before the NA end/last rung
+  document.querySelector('.Code').insertBefore(addedrung, ENDRung);
 }
 
 // #region HTML Manipulations (selecting, deleting, undo, redo, etc.)
@@ -89,25 +87,36 @@ function selectElement(e)
   selectedElement.style.background = '#120ee8';
 }
 
-//this feels kind of shit
+//this is kind of shit
 function deleteElement(e) 
 {
   if(e.key == 'Delete')
   {
-    var deletedElement = selectedElement;
-    if(selectedElement.previousElementSibling != null) 
+    var deletedElement = selectedElement; 
+    //first try to select the next sibling element
+    if(deletedElement.nextElementSibling != null)
     {
-      //if its the last instruction on the rung select the rung (not the rung number)
-      if(selectedElement.previousElementSibling.className == 'RungNumber')
-      {
-        selectedElement = deletedElement.parentElement;
-      }
-      else 
-      {
-        selectedElement = deletedElement.previousElementSibling;
-      }
+      selectedElement = deletedElement.nextElementSibling;
       selectedElement.style.background = '#120ee8';
     }
+    //then try to get the previous sibling
+    else if(deletedElement.previousElementSibling != null)
+    {
+      selectedElement = deletedElement.previousElementSibling;
+      selectedElement.style.background = '#120ee8';
+    }
+    //if we arent deleting a rung (which will not have a deletable parent) then select the current rung
+    else if (deletedElement.className != 'Rung')
+    {
+      selectedElement = deletedElement.parentElement;
+      selectedElement.style.background = '#120ee8';
+    }
+    else
+    {
+      selectedElement = null; //nothing left to select
+    }
+
+    //finally remove the element we want to delete
     deletedElement.remove();
   }
 }
