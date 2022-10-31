@@ -10,6 +10,47 @@ const ENDRung = document.querySelector('.END');
 
 // #endregion
 
+const buttons = document.querySelectorAll('.instruction > *');
+for (const button of buttons)
+{
+  // var buttonName = button.className; dont need this send the event has the element's class name
+  button.addEventListener('click', addInstruction);
+}
+
+function addInstruction(e)
+{
+  if(selectedElement != null) 
+  {
+   instruction = new inputDiv(e.target.className);
+
+   if (selectedElement.className == 'Rung')
+   {
+    //if the rung is selected append the new instruction as the last child
+    selectedElement.appendChild(instruction);
+   }
+   else
+   {
+    //if an instruction is selected append the new one after the selected one
+    selectedElement.parentElement.insertBefore(instruction, selectedElement.nextElementSibling)
+   }
+  }
+}
+
+const newrungbutton = document.querySelector(".NewRung");
+newrungbutton.addEventListener('click', addnewrung);
+
+function addnewrung() 
+{
+  const addedrung = document.createElement('div');
+  addedrung.className = 'Rung';
+  addedrung.tabIndex = '0'; //idk why this is needed
+  addedrung.addEventListener('click', selectElement);
+  addedrung.addEventListener('keydown', deleteElement);
+
+  //add the rung before the NA end/last rung
+  document.querySelector('.Code').insertBefore(addedrung, ENDRung);
+}
+
 //I dont know if this should be a function or a class
 class inputDiv 
 {
@@ -39,39 +80,6 @@ class inputDiv
     InputDiv.appendChild(instructionSymbol);
     return InputDiv;
   }
-}
-
-// resizes the input field to match the length of the text input
-//can probably add the tagname rename on exit
-function resizeInput() 
-{
-  this.style.width = this.value.length + "ch";
-}
-
-document.querySelector('.instruction > .XIC').addEventListener('click', addXIC);
-
-function addXIC() 
-{
-  if(selectedElement != null) 
-  {
-   instruction = new inputDiv('XIC');
-   selectedElement.appendChild(instruction);
-  }
-}
-
-const newrungbutton = document.querySelector(".NewRung");
-newrungbutton.addEventListener('click', addnewrung);
-
-function addnewrung() 
-{
-  const addedrung = document.createElement('div');
-  addedrung.className = 'Rung';
-  addedrung.tabIndex = '0'; //idk why this is needed
-  addedrung.addEventListener('click', selectElement);
-  addedrung.addEventListener('keydown', deleteElement);
-
-  //add the rung before the NA end/last rung
-  document.querySelector('.Code').insertBefore(addedrung, ENDRung);
 }
 
 // #region HTML Manipulations (selecting, deleting, undo, redo, etc.)
@@ -119,6 +127,13 @@ function deleteElement(e)
     //finally remove the element we want to delete
     deletedElement.remove();
   }
+}
+
+// resizes the input field to match the length of the text input
+//can probably add the tagname rename on exit
+function resizeInput() 
+{
+  this.style.width = this.value.length + "ch";
 }
 
 // #endregion
