@@ -10,10 +10,11 @@ const ENDRung = document.querySelector('.END');
 
 // #endregion
 
+// #region Buttons
+
 const buttons = document.querySelectorAll('.instruction > *');
 for (const button of buttons)
 {
-  // var buttonName = button.className; dont need this send the event has the element's class name
   button.addEventListener('click', addInstruction);
 }
 
@@ -21,7 +22,7 @@ function addInstruction(e)
 {
   if(selectedElement != null) 
   {
-   instruction = new inputDiv(e.target.className);
+   instruction = instructionDiv(e.target.className);
 
    if (selectedElement.className == 'Rung')
    {
@@ -51,35 +52,27 @@ function addnewrung()
   document.querySelector('.Code').insertBefore(addedrung, ENDRung);
 }
 
-//I dont know if this should be a function or a class
-class inputDiv 
+// #endregion
+
+function instructionDiv(InstructionName, tagName = '?') 
 {
-  addedInstruction;
-  constructor(InstructionName, tagName = '?') 
-  {
-    const tagNameDiv = document.createElement('input');
-    tagNameDiv.className = 'TagName'
-    tagNameDiv.value = tagName;
-    tagNameDiv.addEventListener('input', resizeInput);
-    const InputDiv = document.createElement('div');
-    InputDiv.className = 'Input';
-    InputDiv.appendChild(tagNameDiv);
-    InputDiv.addEventListener('click', selectElement);
-    InputDiv.addEventListener('keydown', deleteElement);
+  const tagNameDiv = document.createElement('input');
+  tagNameDiv.className = 'TagName'
+  tagNameDiv.value = tagName;
+  tagNameDiv.addEventListener('input', resizeInput);
 
-    const instructionSymbol = document.createElement('div');
+  const instructionSymbol = document.createElement('div');
+  instructionSymbol.className = InstructionName;
+  instructionSymbol.innerText = InstructionName; //temp code until images are added
 
-    switch (InstructionName) 
-    {
-      case 'XIC':
-        const addedInstruction = new XIC(tagName);
-        instructionSymbol.className = 'XICInstruction';
-        instructionSymbol.innerText = 'XIC'; //temp code until images are added
-        break;
-    }
-    InputDiv.appendChild(instructionSymbol);
-    return InputDiv;
-  }
+  const InputDiv = document.createElement('div');
+  InputDiv.className = 'Input'; //this will need to be changed, either input or output
+  InputDiv.appendChild(tagNameDiv);
+  InputDiv.appendChild(instructionSymbol);
+  InputDiv.addEventListener('click', selectElement);
+  InputDiv.addEventListener('keydown', deleteElement);
+
+  return InputDiv;
 }
 
 // #region HTML Manipulations (selecting, deleting, undo, redo, etc.)
