@@ -96,6 +96,10 @@ h1 {
   width: 40px;
 }
 
+.TagName:invalid {
+  background: red;
+}
+
 /* Instruction Image Locations */
 
 /* .NewRung {

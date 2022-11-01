@@ -59,7 +59,10 @@ function instructionDiv(InstructionName, tagName = '?')
   const tagNameDiv = document.createElement('input');
   tagNameDiv.className = 'TagName'
   tagNameDiv.value = tagName;
+  tagNameDiv.pattern = '^[A-Za-z](?:_?[a-z0-9]+)*$'; //I hate regex https://stackoverflow.com/questions/2821419/regular-expression-starting-and-ending-with-a-letter-accepting-only-letters
+  //maybe I can add a title to let the user know when something is wrong
   tagNameDiv.addEventListener('input', resizeInput);
+  tagNameDiv.addEventListener('focusout', defineTagName);
 
   const instructionSymbol = document.createElement('div');
   instructionSymbol.className = InstructionName;
@@ -123,10 +126,19 @@ function deleteElement(e)
 }
 
 // resizes the input field to match the length of the text input
-//can probably add the tagname rename on exit
 function resizeInput() 
 {
   this.style.width = this.value.length + "ch";
+}
+
+//adds tag name to list if new, otherwise updates old tag
+function defineTagName()
+{
+  //tag name meets regex and is valid
+  if(this.validity.valid)
+  {
+    //create tag name
+  }
 }
 
 // #endregion
