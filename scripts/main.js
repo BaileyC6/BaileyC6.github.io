@@ -59,7 +59,7 @@ function instructionDiv(InstructionName, tagName = '?')
   const tagNameDiv = document.createElement('input');
   tagNameDiv.className = 'TagName'
   tagNameDiv.value = tagName;
-  tagNameDiv.pattern = '^[A-Za-z](?:_?[a-z0-9]+)*$'; //I hate regex https://stackoverflow.com/questions/2821419/regular-expression-starting-and-ending-with-a-letter-accepting-only-letters
+  tagNameDiv.pattern = '^[A-Za-z](?:_?[A-Za-z0-9]+)*$'; //I hate regex https://stackoverflow.com/questions/2821419/regular-expression-starting-and-ending-with-a-letter-accepting-only-letters
   //maybe I can add a title to let the user know when something is wrong
   tagNameDiv.addEventListener('input', resizeInput);
   tagNameDiv.addEventListener('focusout', defineTagName);
