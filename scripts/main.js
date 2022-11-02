@@ -1,3 +1,7 @@
+// #region bug list
+// when 'END' is selected, instructions can be added
+// #endregion
+
 // #region Initializers
 
 //give select/delete commands to intial html rung element
@@ -20,20 +24,24 @@ for (const button of buttons)
 
 function addInstruction(e)
 {
-  if(selectedElement != null) 
+  if(selectedElement == null || 
+    (selectedElement.className != 'Rung' &&
+    selectedElement.className != 'Input' && 
+    selectedElement.className != 'Output' ))
   {
-   instruction = instructionDiv(e.target.className);
+    return;
+  }
+  instruction = instructionDiv(e.target.className);
 
-   if (selectedElement.className == 'Rung')
-   {
-    //if the rung is selected append the new instruction as the last child
-    selectedElement.appendChild(instruction);
-   }
-   else
-   {
-    //if an instruction is selected append the new one after the selected one
-    selectedElement.parentElement.insertBefore(instruction, selectedElement.nextElementSibling)
-   }
+  if (selectedElement.className == 'Rung')
+  {
+  //if the rung is selected append the new instruction as the last child
+  selectedElement.appendChild(instruction);
+  }
+  else
+  {
+  //if an instruction is selected append the new one after the selected one
+  selectedElement.parentElement.insertBefore(instruction, selectedElement.nextElementSibling)
   }
 }
 
